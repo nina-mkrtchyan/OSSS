@@ -4,7 +4,7 @@ namespace HardWare
 {
     class Monitor
     {
-        public  void OutPut(string ob)
+        public  void Output(string ob)
         {
             Console.WriteLine(ob);
         }

@@ -15,43 +15,60 @@ namespace HardWare
 
             private string Path{set;get;}
 
-            private class EventArgs_read_:EventArgs
+            private class EventArgs_:EventArgs
             {
-                public bool Read_Bool { set; get; }
+                public bool Read_Bool {private set; get; }
+
+                public int Read_Count {private set; get; }
           
-                public EventArgs_read_(bool read)
+                public EventArgs_(bool read,int count)
                 {
                 Read_Bool=read;
+                Read_Count = count;
                 }
                 public override string ToString()
                 {
 
-                    return String.Format("{0} Read_Bool = {1} ", base.ToString(), Read_Bool);
+                    return String.Format("{0} Read_Bool = {1} Read_Count {2} ", base.ToString(), Read_Bool,Read_Count);
                 }
             }
 
-            public event EventHandler<EventArgs_read_> read_;
+            public event EventHandler<EventArgs_> read_;
+            public event EventHandler<EventArgs_> write_;
 
-            protected virtual void Event_Func(EventArgs_read_ e)
+            protected virtual void Event_Func_read(EventArgs_ e)
             {
-            EventHandler<EventArgs_read_> temp = Volatile.Read(ref read_);
+            EventHandler<EventArgs_> temp = Volatile.Read(ref read_);
             if (temp != null) temp(this, e);
-
             }
 
-            public void SimulateEvent(bool read)
-           {
+            protected virtual void Event_Func_write(EventArgs_ e)
+            {
+                EventHandler<EventArgs_> temp = Volatile.Read(ref write_);
+                if (temp != null) temp(this, e);
+            }
 
+            public void SimulateEvent_for_read(bool read,int count)
+           {
             // Создать объект для хранения информации, которую нужно передать получателям уведомления
-            EventArgs_read_ e = new EventArgs_read_(read);
+            EventArgs_ e = new EventArgs_(read,count);
             // Вызвать виртуальный метод, уведомляющий объект о событии Если ни один из производных типов не переопределяет этот метод,
             // объект уведомит всех зарегистрированных получателей уведомления
-            Event_Func(e);
+            Event_Func_read(e);
+            }
+
+            public void SimulateEvent_for_writeing(bool write, int count)
+            {
+                // Создать объект для хранения информации, которую нужно передать получателям уведомления
+                EventArgs_ e = new EventArgs_(write,count);
+                // Вызвать виртуальный метод, уведомляющий объект о событии Если ни один из производных типов не переопределяет этот метод,
+                // объект уведомит всех зарегистрированных получателей уведомления
+                Event_Func_write(e);
             }
 
             public Hard_Disk(string path = @"D:\HARD_DISK.txt")
             {
-
+       
                 FileStream Stream = new FileStream();
 
                 this.Path = path;
@@ -80,21 +97,24 @@ namespace HardWare
                 {
                     Stream.Close();
                 }
-
-
             }
 
 
 
             public byte[] read(long addr,int size)
             {
-            int exc;
+            int count;
 
             byte[] vec = new byte[size];
 
             using (FileStream sr = File.OpenRead(Path))
             {
-
+                /*
+               public override long Seek(long offset, SeekOrigin origin)
+               addr,Int64
+               Указатель относительно начальной точки origin, от которой начинается поиск
+               */
+                sr.Seek(addr, SeekOrigin.Begin);
 
                 //public virtual void Lock(long position,long length)
                 //position
@@ -104,15 +124,8 @@ namespace HardWare
                 //Диапазон, который нужно блокировать.
                 sr.Lock(addr,size);
 
-                /*
-                public override long Seek(long offset, SeekOrigin origin)
-                addr,Int64
-                Указатель относительно начальной точки origin, от которой начинается поиск
-                */
-                sr.Seek(addr,SeekOrigin.Begin);
-
                 // public override int Read(byte[] array,int offset,int count)
-                exc=sr.Read(vec,0,size);
+                count=sr.Read(vec,0,size);
                 //array
                 //При возврате из этого метода содержит указанный массив байтов,
                 //в котором значения в диапазоне от offset до (offset + count - 1)) заменены байтами, считанными из текущего источника.
@@ -120,35 +133,29 @@ namespace HardWare
                 //Смещение в байтах в массиве array, в который будут помещены считанные байты
                 //count
                 //Максимальное число байтов, предназначенных для чтения.
+
+                //public virtual void Unlock(long position,long length)
+                sr.Unlock(addr, size);
+                //position
+                //Начало диапазона, который должен быть разблокирован.
+                //length
+                //Диапазон, который должен быть разблокирован.
+
                 try
                 {
-                    if (exc != size)
+                    if (count != size)
                     {
-                        SimulateEvent(false);//evanta uxarkum vor vochbarehajoxa kardace prce,nor heto exceptiona qcum
-                        throw new Exception("can't read from HD wanted count of bytes");
-                    }
+                        SimulateEvent_for_read(false,count);//evanta uxarkum vor vochbarehajoxa kardace prce,nor heto exceptiona qcum
+                        throw new Exception("can't read from HD expected count of bytes");
+                    }else
+                        SimulateEvent_for_read(true,count);//eventa uxarkum vor barehajox kardacela prcela
                 }
                 catch (Exception ob)
                 {
                     Console.WriteLine(ob.Message);
                 }
-
-                SimulateEvent(true);//eventa uxarkum vor barehajox kardacela prcela
-
-
-                //public virtual void Unlock(long position,long length)
-                sr.Unlock(addr,size);
-
-                //position
-                //Начало диапазона, который должен быть разблокирован.
-
-                //length
-                //Диапазон, который должен быть разблокирован.
-
             }
-
             return vec;
-
         }
 
 
@@ -162,14 +169,18 @@ namespace HardWare
                     wr.Seek(addr,SeekOrigin.Begin);
                     //addr,Int64
                     //Указатель относительно начальной точки origin, от которой начинается поиск
-
                     // SeekOrigin.Begin
                     //Задает начальную, конечную или текущую позицию как опорную точку для offset,
                     //используя значение типа SeekOrigin
-                    
-                    
+
+                    wr.Lock(addr,data.Length);
+
                     //public override void Write(byte[] array,int offset,int count)
                     wr.Write(data, 0, data.Length);
+                   
+                    wr.Unlock(addr, data.Length);
+
+                    SimulateEvent_for_writeing(true,data.Length);
                 }
 
             }

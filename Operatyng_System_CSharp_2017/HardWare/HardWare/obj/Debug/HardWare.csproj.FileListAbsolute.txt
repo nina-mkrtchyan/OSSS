@@ -14,3 +14,6 @@ H:\Operatyng_System_CSharp_2017\HardWare\HardWare\obj\Debug\HardWare.csprojResol
 E:\Operatyng_System_CSharp_2017\HardWare\HardWare\bin\Debug\HardWare.exe.config
 E:\Operatyng_System_CSharp_2017\HardWare\HardWare\obj\Debug\HardWare.exe
 E:\Operatyng_System_CSharp_2017\HardWare\HardWare\obj\Debug\HardWare.pdb
+C:\Users\Shavarsh\Desktop\Operatyng_System_CSharp_2017\HardWare\HardWare\bin\Debug\HardWare.exe.config
+C:\Users\Shavarsh\Desktop\Operatyng_System_CSharp_2017\HardWare\HardWare\obj\Debug\HardWare.exe
+C:\Users\Shavarsh\Desktop\Operatyng_System_CSharp_2017\HardWare\HardWare\obj\Debug\HardWare.pdb

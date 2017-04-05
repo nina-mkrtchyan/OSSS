@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bois_and_Boot_Loader
+namespace Bios_and_Loader
 {
-    public class Bios
+    class Loaderr
     {
-
     }
 }

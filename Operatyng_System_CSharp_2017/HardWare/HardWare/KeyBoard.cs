@@ -6,7 +6,7 @@ namespace HardWare
 {
     class KeyBoard
     {
-        public string Buffer { set; get; }
+        public string Buffer {private set; get; }
 
         public string Input()
         {

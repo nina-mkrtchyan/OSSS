@@ -6,8 +6,9 @@ namespace HardWare
 {
     class My_Timer
     {
-        public  Timer timer=new Timer();//Конструктор Timer
+        private Timer timer { set; get; }//Конструктор Timer
         //Инициализирует новый экземпляр класса Timer.
+
         public My_Timer(double Interval = 1000.0)
         {
             timer.AutoReset = true;
@@ -21,6 +22,13 @@ namespace HardWare
             
         }
 
+        public void Add_Func_For_Elapsing(ElapsedEventHandler del)
+        {
+            timer.Elapsed += del;
+        }
+
+        
+       
         ~My_Timer()
         {
             timer.Stop();
