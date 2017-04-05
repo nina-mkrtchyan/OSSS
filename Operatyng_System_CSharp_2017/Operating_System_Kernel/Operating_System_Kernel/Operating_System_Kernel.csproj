@@ -39,6 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Array_Of_I_Nodes.cs" />
+    <Compile Include="Catalog.cs" />
+    <Compile Include="Information_Of_Free_Blocks.cs" />
+    <Compile Include="I_Node.cs" />
     <Compile Include="Memory_Manager.cs" />
     <Compile Include="Inter_Process_Comunication.cs" />
     <Compile Include="Process_Manager.cs" />
@@ -46,6 +50,9 @@
     <Compile Include="Input_Output_Manager.cs" />
     <Compile Include="File_System.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Root_Catalog.cs" />
+    <Compile Include="Super_Block.cs" />
+    <Compile Include="Zapis_Of_File.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

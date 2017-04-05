@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 namespace Operating_System_Kernel
 
 {
-    internal class File_System
+    class File_System
     {
         
     }
