@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bios_and_Loader
 {
-    class Loaderr
+    class Bios
     {
     }
 }
