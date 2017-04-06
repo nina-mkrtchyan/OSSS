@@ -18,8 +18,8 @@ namespace Operating_System_Kernel
         short System_File;//0 or 1
         short Size_Of_Zapis;//  ??
         ulong Create_Time_;
-        int Last_Access;
-        int Last_Change;
+        ulong Last_Access;
+        ulong Last_Change;
         int Current_Size;
         int Max_Size;
 
