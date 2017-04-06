@@ -10,12 +10,12 @@ namespace Operating_System_Kernel
     {
 
         //atributner@ klinenenenen
-        short Protection;
-        short Read_Only;//0 or 1
-        short Write_Only;//0 or 1
-        short Read_Write;//0 or 1
-        short Hidden;//0 or 1
-        short System_File;//0 or 1
+        byte Protection;
+        byte Read_Only;//0 or 1 
+        byte Write_Only;//0 or 1
+        byte Read_Write;//0 or 1
+        byte Hidden;//0 or 1
+        byte System_File;//0 or 1
         short Size_Of_Zapis;//  ??
         ulong Create_Time_;
         ulong Last_Access;
