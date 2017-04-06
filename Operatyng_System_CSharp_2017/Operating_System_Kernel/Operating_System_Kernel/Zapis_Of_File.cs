@@ -9,6 +9,14 @@ namespace Operating_System_Kernel
     class Zapis_Of_File
     {   
             // name_of_file;
-            // index_of_i_Node_
+        short[] name = new short[32];
+
+        int index_of_i_Node_;
+
+        public Zapis_Of_File(int index)
+        {
+            index_of_i_Node_ = index;
+        }
+
     }
 }

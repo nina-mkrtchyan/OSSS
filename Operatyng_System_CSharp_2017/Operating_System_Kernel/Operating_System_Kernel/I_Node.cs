@@ -8,19 +8,11 @@ namespace Operating_System_Kernel
 {
     class I_Node
     {
-        /*
-         * parunakuma fayli atrubutner@,,orinak stexcman  pah@,,tirog anun@,,voshm senc baner
-         * 
-         * adress bloka 0
-         * * adress bloka 1
-         * * adress bloka 2
-         * * adress bloka 3
-         * * adress bloka 4
-         * * adress bloka 5
-         * * adress bloka 6
-         * * adress bloka 7
-         * 
-         * adress bloka ukazateley
-         */
+   
+        File_Attributes attributes = new File_Attributes();
+        ulong[] Block_Adress = new ulong[8];//es zangvaci amen mi tarri mech grvaca pa suci mi hat mec kam poqr tiv vor@ 
+        //iranic nerkayacnuma fayli eterord bloki arajin bit@
+        I_Node__ ref_of_next_I_Node__;
+
     }
 }
