@@ -4,9 +4,11 @@ namespace HardWare
 {
     class Monitor
     {
-        public  void Output(string ob)
+        public  void Output(Byte[] buffer)
         {
-            Console.WriteLine(ob);
+            // From byte array to string
+            string s = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            Console.WriteLine(s);
         }
     }
 }

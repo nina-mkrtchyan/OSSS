@@ -6,11 +6,12 @@ namespace HardWare
 {
     class KeyBoard
     {
-        public string Buffer {private set; get; }
+        public byte[] Buffer {private set; get; }
 
-        public string Input()
+        public byte[] Input()
         {
-            Buffer=Console.ReadLine();
+            // From string to byte array
+             Buffer = System.Text.Encoding.UTF8.GetBytes(Console.ReadLine());
             return Buffer;
         }
 

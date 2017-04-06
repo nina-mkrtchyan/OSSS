@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using System.Text;//UTF8Encoding
+using System.Threading.Tasks;
 
 
 
@@ -125,7 +126,10 @@ namespace HardWare
                 sr.Lock(addr,size);
 
                 // public override int Read(byte[] array,int offset,int count)
-                count=sr.Read(vec,0,size);
+                //count= 
+                
+                count= sr.Read(vec,0,size);
+                
                 //array
                 //При возврате из этого метода содержит указанный массив байтов,
                 //в котором значения в диапазоне от offset до (offset + count - 1)) заменены байтами, считанными из текущего источника.
